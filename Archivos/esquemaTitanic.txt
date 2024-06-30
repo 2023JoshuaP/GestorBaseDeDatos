@@ -1,0 +1,13 @@
+Titanic
+PassengerId         int       4    
+Survived            int       4    
+Pclass              int       4    
+Name                str       60   
+Sex                 str       10   
+Age                 int       4    
+SibSp               int       4    
+Parch               int       4    
+Ticket              str       20   
+Fare                float     4    
+Cabin               str       10   
+Embarked            str       1    
