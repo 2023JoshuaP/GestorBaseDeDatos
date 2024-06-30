@@ -16,7 +16,7 @@ Este proyecto implementa un Sistema de Gestión de Bases de Datos (SGBD) en C++.
 - Compilador de C++ compatible con C++11 o superior.
 - Sistema operativo Windows, macOS o Linux.
 
-##Explicación 
+## Explicación 
 
 - **Archivos**: Contiene los archivos de datos y esquemas utilizados en el proyecto.
 - **Buffer**: Contiene el archivo principal (`main.cpp`) y los archivos de manejo de páginas (`Pagina.cpp`, `Pagina.h`).
