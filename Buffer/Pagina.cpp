@@ -19,19 +19,31 @@ Pagina::Pagina() {}
 
 Pagina::~Pagina() {}
 
+/* D:\BaseDeDatos2\GestorBaseDeDatos\Archivos\directorio.txt */
+
 void Pagina::recogerRegistros(int numPagina) {
     /* Recogemos las rutas del Disco para mejor búsqueda */
-    string directorio = "..Archivos/directorio.txt";
+    string directorio = "../Archivos/directorio.txt";
     ifstream fileDirectorio(directorio);
     string pathBlockWrite;
     string line;
 
+    if (!fileDirectorio.is_open()) {
+        cout << "No se pudo abrir el archivo del directorio: " << directorio << endl;
+        return;
+    }
+
+    cout << "Leyendo el archivo del directorio: " << directorio << endl;
+
     while (getline(fileDirectorio, line)) {
+        cout << "Leyendo linea del directorio: " << line << endl;
         size_t pos = line.rfind('/');
         if (pos != string::npos) {
             string value = line.substr(pos + 1);
+            cout << "Comparando " << value << " con " << numPagina << endl;
             if (stoi(value) == numPagina) {
                 pathBlockWrite = line;
+                cout << "Ruta encontrada: " << pathBlockWrite << endl;
                 cout << "El valor a considerar es " << value << "." << endl;
                 break;
             }
@@ -47,8 +59,10 @@ void Pagina::recogerRegistros(int numPagina) {
         components.push_back(value2);
     }
 
+    cout << "Componentes obtenidos: " << endl;
     if (components.size() >= 4) {
         pathBlockWrite = "../Disco/Disco/Plato " + components[0] + "/Superficie " + components[1] + "/Pista " + components[2] + "/Bloque " + components[3] + ".txt";
+        cout << "Ruta completa del Bloque: " << pathBlockWrite << endl;
     }
     else {
         cout << "Ruta de Bloque no encontrado." << endl;
@@ -59,6 +73,7 @@ void Pagina::recogerRegistros(int numPagina) {
 
     if (!pathBlock.is_open()) {
         cout << "No se pudo abrir el archivo." << endl;
+        return;
     }
     
     int lineNumber = 0;
@@ -281,11 +296,16 @@ bool Pagina::verificarPaginaVacia() {
 }
 
 void Pagina::agregarContenido(int numPagina) {
-    /* Leer las rutas del Disco desde un directorio para mejor búsqueda */
+    // Leer las rutas del Disco desde un directorio para mejor búsqueda
     string pathDirectory = "../Archivos/directorio.txt";
     ifstream fileDirectory(pathDirectory);
     string pathBlockWrite;
     string line;
+
+    if (!fileDirectory.is_open()) {
+        cout << "No se pudo abrir el archivo del directorio: " << pathDirectory << endl;
+        return;
+    }
 
     while (getline(fileDirectory, line)) {
         size_t pos = line.rfind('/');
@@ -308,11 +328,11 @@ void Pagina::agregarContenido(int numPagina) {
         components.push_back(value2);
     }
 
-    if (components.size() >= 1) {
+    if (components.size() >= 4) {
         pathBlockWrite = "../Disco/Disco/Plato " + components[0] + "/Superficie " + components[1] + "/Pista " + components[2] + "/Bloque " + components[3] + ".txt";
     }
     else {
-        cout << "No se encontro la ruta del Bloque." << endl;
+        cout << "No se encontró la ruta del Bloque." << endl;
         return;
     }
 
@@ -320,10 +340,11 @@ void Pagina::agregarContenido(int numPagina) {
 
     if (!pathBlock.is_open()) {
         cout << "No se pudo abrir el archivo del Bloque." << endl;
+        return;
     }
     else {
-        for (int_least32_t i = 0; i < this->vectorRegistrosEnPagina.size(); i++) {
-            pathBlock << this->vectorRegistrosEnPagina[i] << endl;
+        for (const string &registro : this->vectorRegistrosEnPagina) {
+            pathBlock << registro << endl;
         }
         pathBlock.close();
         cout << "Contenido de Pagina en memoria mandado al Bloque." << endl;
@@ -334,15 +355,15 @@ void Pagina::agregarContenido(int numPagina) {
     cin >> answer;
 
     if (answer == 's' || answer == 'S') {
-        string pathBlockWriteDisk = "../Disco/Disco/Plato " + components[0] + "/Superficie " + components[1] + "/Pista " + components[2] + "/" + components[3] + ".txt";
+        string pathBlockWriteDisk = "../Disco/Disco/Plato " + components[0] + "/Superficie " + components[1] + "/Pista " + components[2] + "/Bloque " + components[3] + ".txt";
         ofstream pathBlockDisk(pathBlockWriteDisk, ios::trunc);
-        
+
         if (!pathBlockDisk.is_open()) {
             cout << "No se pudo abrir el archivo del Disco." << endl;
         }
         else {
-            for (int_least32_t i = 0; i < this->vectorRegistrosEnPagina[i].size(); i++) {
-                pathBlock << this->vectorRegistrosEnPagina[i] << endl;
+            for (const string &registro : this->vectorRegistrosEnPagina) {
+                pathBlockDisk << registro << endl;
             }
             pathBlockDisk.close();
             cout << "Contenido guardado en el Disco." << endl;
