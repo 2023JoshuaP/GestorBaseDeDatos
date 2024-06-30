@@ -16,27 +16,7 @@ Este proyecto implementa un Sistema de Gestión de Bases de Datos (SGBD) en C++.
 - Compilador de C++ compatible con C++11 o superior.
 - Sistema operativo Windows, macOS o Linux.
 
-## Estructura del Proyecto
-
-```plaintext
-.
-├── Archivos
-│   ├── directorio.txt
-│   ├── esquemaTitanic.txt
-│   ├── registros.txt
-│   ├── registrosTitanic.txt
-│   └── Titanic.csv
-├── Buffer
-│   ├── main.cpp
-│   ├── main.exe
-│   ├── Pagina.cpp
-│   ├── Pagina.h
-├── Disco
-│   ├── Disco.cpp
-│   └── Disco.h
-├── README.md
-└── .vscode
-    └── settings.json
+##Explicación 
 
 - **Archivos**: Contiene los archivos de datos y esquemas utilizados en el proyecto.
 - **Buffer**: Contiene el archivo principal (`main.cpp`) y los archivos de manejo de páginas (`Pagina.cpp`, `Pagina.h`).
@@ -90,3 +70,26 @@ Las contribuciones son bienvenidas. Si deseas contribuir, por favor sigue los si
 3. Realiza un commit de tus cambios (`git commit -am 'Agregar nueva característica'`).
 4. Haz push de la rama (`git push origin feature/nueva-caracteristica`).
 5. Abre un Pull Request.
+
+## Estructura del Proyecto
+
+```plaintext
+.
+├── Archivos
+│   ├── directorio.txt
+│   ├── esquemaTitanic.txt
+│   ├── registros.txt
+│   ├── registrosTitanic.txt
+│   └── Titanic.csv
+├── Buffer
+│   ├── main.cpp
+│   ├── main.exe
+│   ├── Pagina.cpp
+│   ├── Pagina.h
+├── Disco
+│   ├── Disco.cpp
+│   └── Disco.h
+├── README.md
+└── .vscode
+    └── settings.json
+´´´
