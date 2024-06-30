@@ -213,11 +213,13 @@ void Pagina::leerOescribirPagina() {
 
                 if (optionRecord == 1) {
                     string nameFileRelation;
+                    string pathFileRelation = "../Archivos/";
                     string newRecord;
                     cout << "Archivo Relacion: ";
                     cin >> nameFileRelation;
 
-                    ifstream fileRelation(nameFileRelation);
+                    string pathComplete = pathFileRelation + nameFileRelation;
+                    ifstream fileRelation(pathComplete);
                     ifstream fileSchema("../Archivos/esquemaTitanic.txt");
                     string lineRelation;
                     string dataInsertRelation;
@@ -227,7 +229,7 @@ void Pagina::leerOescribirPagina() {
                     int weightString;
                     size_t i = 0;
 
-                    while (getline(fileRelation, line)) {
+                    while (getline(fileRelation, lineRelation)) {
                         firstValue = false;
                         stringstream ss(lineRelation);
                         string valueRelation;
@@ -343,8 +345,8 @@ void Pagina::agregarContenido(int numPagina) {
         return;
     }
     else {
-        for (const string &registro : this->vectorRegistrosEnPagina) {
-            pathBlock << registro << endl;
+        for (int_least32_t i = 0; i < this->vectorRegistrosEnPagina.size(); ++i) {
+            pathBlock << this->vectorRegistrosEnPagina[i] << endl;
         }
         pathBlock.close();
         cout << "Contenido de Pagina en memoria mandado al Bloque." << endl;
@@ -355,15 +357,15 @@ void Pagina::agregarContenido(int numPagina) {
     cin >> answer;
 
     if (answer == 's' || answer == 'S') {
-        string pathBlockWriteDisk = "../Disco/Disco/Plato " + components[0] + "/Superficie " + components[1] + "/Pista " + components[2] + "/Bloque " + components[3] + ".txt";
+        string pathBlockWriteDisk = "../Disco/Disco/Plato " + components[0] + "/Superficie " + components[1] + "/Pista " + components[2] + "/" + components[3] + ".txt";
         ofstream pathBlockDisk(pathBlockWriteDisk, ios::trunc);
 
         if (!pathBlockDisk.is_open()) {
             cout << "No se pudo abrir el archivo del Disco." << endl;
         }
         else {
-            for (const string &registro : this->vectorRegistrosEnPagina) {
-                pathBlockDisk << registro << endl;
+            for (int_least32_t i = 0; i < this->vectorRegistrosEnPagina.size(); ++i) {
+                pathBlockDisk << this->vectorRegistrosEnPagina[i] << endl;
             }
             pathBlockDisk.close();
             cout << "Contenido guardado en el Disco." << endl;
