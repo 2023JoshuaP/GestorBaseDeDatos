@@ -1,4 +1,4 @@
-# GestorBaseDeDatos# Implementación de un Sistema de Gestión de Bases de Datos (SGBD)
+# Implementación de un Sistema de Gestión de Bases de Datos (SGBD)
 
 Este proyecto implementa un Sistema de Gestión de Bases de Datos (SGBD) en C++. El SGBD permite la creación de un disco virtual con platos, pistas, sectores y bloques, así como la conversión de archivos CSV a registros de longitud fija y la generación de esquemas de datos.
 
