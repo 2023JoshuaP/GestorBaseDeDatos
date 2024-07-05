@@ -92,6 +92,12 @@ void Disco::crearDisco() {
             }
         }
     }
+    ofstream archivo("../megatron2/data_disco");
+    archivo << numPlatos << endl;
+    archivo << 2 << endl;
+    archivo << pistaPorSuperficie << endl;
+    archivo << sectoresPorPista << endl;
+    archivo.close();
 }
 
 void Disco::capacidadDisco() {
@@ -188,7 +194,7 @@ void Disco::crearBloques(int capacidadBloque, int capacidadSector, int cantidadS
             for (int pista = 1; pista <= pistaPorSuperficie; pista++) {
                 string carpetaPista = "Disco/Plato " + to_string(plato) + "/Superficie " + to_string(superficie) + "/Pista " + to_string(pista);
                 for (int sector = 1; sector <= sectoresPorPista; sector += sectoresPorBloque) {
-                    string rutaDirectorio = "../Archivos/directorio.txt";
+                    string rutaDirectorio = "../megatron2/directorio.txt";
                     ofstream archivoDirectorio(rutaDirectorio, ios::app);
                     archivoDirectorio << plato << "/" << superficie <<"/" << pista << "/" << contadorBloques << endl;
                     string archivoBloque = carpetaPista + "/Bloque " + to_string(contadorBloques) + ".txt";
