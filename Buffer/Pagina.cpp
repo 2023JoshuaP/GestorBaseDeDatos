@@ -23,7 +23,7 @@ Pagina::~Pagina() {}
 
 void Pagina::recogerRegistros(int numPagina) {
     /* Recogemos las rutas del Disco para mejor búsqueda */
-    string directorio = "../Archivos/directorio.txt";
+    string directorio = "../megatron2/directorio.txt";
     ifstream fileDirectorio(directorio);
     string pathBlockWrite;
     string line;
@@ -299,7 +299,7 @@ bool Pagina::verificarPaginaVacia() {
 
 void Pagina::agregarContenido(int numPagina) {
     // Leer las rutas del Disco desde un directorio para mejor búsqueda
-    string pathDirectory = "../Archivos/directorio.txt";
+    string pathDirectory = "../megatron2/directorio.txt";
     ifstream fileDirectory(pathDirectory);
     string pathBlockWrite;
     string line;
