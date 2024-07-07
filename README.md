@@ -1,80 +1,34 @@
-# Implementación de un Sistema de Gestión de Bases de Datos (SGBD)
+# GestorBaseDeDatos
 
-Este proyecto implementa un Sistema de Gestión de Bases de Datos (SGBD) en C++. El SGBD permite la creación de un disco virtual con platos, pistas, sectores y bloques, así como la conversión de archivos CSV a registros de longitud fija y la generación de esquemas de datos.
+## Descripción del Proyecto
 
-## Características
+Este repositorio contiene la implementación de un Sistema de Gestión de Bases de Datos (SGBD) escrito en C++. El proyecto permite la creación y manipulación de un disco virtual simulado, incluyendo la gestión de archivos y la conversión de datos CSV en registros de longitud fija. Es ideal para aquellos interesados en comprender los fundamentos de cómo funcionan los sistemas de gestión de bases de datos a nivel interno.
 
-- Generación de esquemas y conversión de archivos CSV a texto.
-- Conversión de registros a longitud fija.
-- Creación de un disco virtual con bloques y sectores.
-- Llenado de sectores y bloques con registros de longitud fija.
-- Mostrar la capacidad del disco.
-- Eliminación del disco.
+## Características Principales
 
-## Requisitos
+1. **Generación de Esquemas**:
+   - Transforma archivos CSV en un formato de texto estructurado basado en esquemas definidos. Esto es crucial para manejar y organizar datos de manera eficiente.
 
-- Compilador de C++ compatible con C++11 o superior.
-- Sistema operativo Windows, macOS o Linux.
+2. **Conversión de Registros**:
+   - Convierte registros de datos en una longitud fija, facilitando el manejo y almacenamiento uniforme de la información en el disco virtual.
 
-## Explicación 
+3. **Creación de un Disco Virtual**:
+   - Simula un disco con una estructura detallada que incluye platos, pistas, sectores y bloques. Este modelo de disco permite experimentar con conceptos de almacenamiento físico en sistemas de bases de datos.
 
-- **Archivos**: Contiene los archivos de datos y esquemas utilizados en el proyecto.
-- **Buffer**: Contiene el archivo principal (`main.cpp`) y los archivos de manejo de páginas (`Pagina.cpp`, `Pagina.h`).
-- **Disco**: Contiene la implementación del disco virtual (`Disco.cpp`, `Disco.h`).
+4. **Gestión de Datos en el Disco Virtual**:
+   - Permite llenar los sectores y bloques del disco con registros, mostrar la capacidad del disco, y realizar operaciones de eliminación en el disco.
 
-## Compilación y Ejecución
-
-Para compilar y ejecutar el proyecto, sigue los siguientes pasos:
-
-1. Navega a la carpeta `Buffer`:
-    ```sh
-    cd Buffer
-    ```
-
-2. Compila el archivo `main.cpp`:
-    ```sh
-    g++ main.cpp Pagina.cpp ../Disco/Disco.cpp -o main
-    ```
-
-3. Ejecuta el archivo compilado:
-    ```sh
-    ./main
-    ```
-
-## Ejemplos de Uso
-
-### Generación de Esquema y Conversión de CSV
-
-1. Coloca tu archivo CSV en la carpeta `Archivos`.
-2. Ejecuta el programa y selecciona la opción para generar el esquema y convertir el archivo CSV.
-3. El esquema y los registros convertidos se guardarán en la carpeta `Archivos`.
-
-### Creación y Manejo del Disco Virtual
-
-1. Ejecuta el programa y selecciona la opción para crear un disco virtual.
-2. Ingresa los detalles necesarios (número de platos, pistas, sectores, bloques, etc.).
-3. Utiliza las opciones del menú para agregar registros, mostrar la capacidad del disco o eliminar el disco.
-
-### Agregar Contenido a un Bloque
-
-1. Ejecuta el programa y selecciona la opción para agregar contenido a un bloque.
-2. Ingresa el número de la página que deseas agregar.
-3. El contenido se guardará en el bloque correspondiente en el disco virtual.
-
-## Contribuciones
-
-Las contribuciones son bienvenidas. Si deseas contribuir, por favor sigue los siguientes pasos:
-
-1. Haz un fork del repositorio.
-2. Crea una rama con tu nueva característica (`git checkout -b feature/nueva-caracteristica`).
-3. Realiza un commit de tus cambios (`git commit -am 'Agregar nueva característica'`).
-4. Haz push de la rama (`git push origin feature/nueva-caracteristica`).
-5. Abre un Pull Request.
+5. **Gestión de la Memoria en el Buffer Manager**:
+   - Permite una mejor gestión para los bloques/páginas del disco, manejo de registros en la inserción, modificación y eliminación de dichos registros y guardarlos en memoria y también en el disco.
 
 ## Estructura del Proyecto
 
+El proyecto está organizado en varias carpetas y archivos, cada uno con su propósito específico:
+
 ```plaintext
 .
+├── Acceso
+│   └── NotasTerceraUnidad.md
 ├── Archivos
 │   ├── directorio.txt
 │   ├── esquemaTitanic.txt
@@ -82,14 +36,52 @@ Las contribuciones son bienvenidas. Si deseas contribuir, por favor sigue los si
 │   ├── registrosTitanic.txt
 │   └── Titanic.csv
 ├── Buffer
+|   ├── BufferManager.cpp
+|   ├── BufferManager.h
+|   ├── BufferPool.cpp
+|   ├── BufferPool.h
+|   ├── Frame.cpp
+|   ├── Frame.h
 │   ├── main.cpp
 │   ├── main.exe
+│   ├── PageTable.cpp
+│   ├── PageTable.h
 │   ├── Pagina.cpp
-│   ├── Pagina.h
+│   └── Pagina.h
 ├── Disco
 │   ├── Disco.cpp
 │   └── Disco.h
 ├── README.md
 └── .vscode
     └── settings.json
-´´´
+```
+
+- **Archivos**: Contiene los archivos de datos y los esquemas utilizados en el proyecto. Estos archivos son fundamentales para los procesos de conversión y almacenamiento. Algunos ejemplos incluyen:
+  - `Titanic.csv`: Un archivo CSV de ejemplo utilizado para demostrar la conversión de datos.
+  - `esquemaTitanic.txt`: El esquema generado a partir del archivo CSV, que define la estructura de los datos.
+  - `registrosTitanic.txt`: Los registros convertidos a partir del CSV, ahora en formato de longitud fija.
+
+- **Buffer**: Incluye los archivos fuente en C++ que manejan las operaciones de buffer y gestión de páginas dentro del disco virtual:
+  - `main.cpp`: El archivo principal del proyecto que coordina la ejecución de diferentes operaciones.
+  - `Pagina.cpp` y `Pagina.h`: Implementan la lógica para manejar las páginas de datos dentro del disco virtual.
+  - `Frame.cpp` y `Frame.h`: Implementan los Frames que almacenan las páginas del disco.
+  - `PageTable.cpp` y `PageTable.h`: Implementan una Tabla para los procesos que se realiza en la gestión.
+  - `BufferPool.cpp` y `BufferPool.h`: Implementan la creación del Buffer Pool con los datos necesarios, mediador entre el Disco y Buffer Manager.
+  - `BufferManager.cpp` y `BufferManager.h`: Implementan la parte mas importante de la gestión de memoria creando el Buffer Pool y la Page Table.
+
+- **Disco**: Contiene la implementación del disco virtual:
+  - `Disco.cpp` y `Disco.h`: Estos archivos definen cómo se crea y manipula el disco virtual, incluyendo la configuración de su estructura (platos, pistas, sectores y bloques).
+
+- **.vscode**: Contiene configuraciones específicas para el entorno de desarrollo Visual Studio Code, facilitando la configuración y depuración del proyecto.
+
+- **megatron2**: Contiene la informacion de los archivos que servirán para una mejor gestión de las rutas: información de la estructura del Disco y rutas del Disco.
+
+## Contribuciones
+
+Las contribuciones son bienvenidas. Si estás interesado en mejorar o expandir este proyecto, por favor sigue estos pasos:
+
+1. Haz un fork del repositorio.
+2. Crea una nueva rama para tu característica (`git checkout -b feature/nueva-caracteristica`).
+3. Realiza un commit de tus cambios (`git commit -am 'Agregar nueva característica'`).
+4. Haz push de la rama (`git push origin feature/nueva-caracteristica`).
+5. Abre un Pull Request para revisión.
