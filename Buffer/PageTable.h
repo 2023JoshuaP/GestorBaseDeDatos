@@ -9,7 +9,27 @@ using namespace std;
 
 class PageTable {
     public:
+        string nameColumnaFrameId = "Frame Id";
         int sizeColumnaFrameId;
+
+        string nameColumnaPageId = "Page Id";
+        int columnPageIdSize;
+
+        string nameColumnaDirttyId = "Dirty Bit";
+        int columnaDirtyIdSize;
+
+        string nameColumnaPinCount = "Pin Count";
+        int columnaPinCountSize;
+
+        //string nameColumnaLastUsed = "Last Used";
+        //int columnaLastUsedSize;
+
+        string nameColumnaRefBit = "Ref Bit";
+        int columnaRefBitSize;
+
+        string nameColumnaPinned = "Pinned";
+        int columnaPinnedSize;
+        
         int columnasPageTable = 5;
         vector<vector<int>> matrizPageTable;
     public:
@@ -31,6 +51,7 @@ class PageTable {
         //void aplicarAlgoritmoLRU(int numPagina, vector<int> &vectorFramesAignorar, int &numPaginaReemplazar, bool &eliminarPageSinEscrituraEnDisco, bool &eliminarPageConEscrituraEnDisco);
         string analizarPageTableParaAgregarPagina(int numPagina);
         bool verificarFramesLlenos();
+        bool verificarDirtyDePagina(int numPagina);
         void actualizarDetallesDePaginaEliminada(int numPaginaActualizar, int nuevaPaginaActualizar);
         void activarReferentBit(int numPagina);
         void aplicarAlgoritmoClock(int numPagina, int numFrameAignorar, bool &eliminarPageSinEscrituraEnDisco, bool &eliminarPageConEscrituraEnDisco, int &numPaginaReemplazar);
