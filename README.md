@@ -1,4 +1,4 @@
-# GestorBaseDeDatos
+# Implementación de un Gestor de Base de Datos para el curso de Base de Datos 2 (Universidad Nacional de San Agustín de Arequiá - UNSA)
 
 ## Descripción del Proyecto
 
