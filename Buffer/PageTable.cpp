@@ -432,6 +432,27 @@ bool PageTable::verificarFramesLlenos() {
     return true;
 }
 
+bool PageTable::verificarDirtyDePagina(int numPagina) {
+    int numFilaElegida;
+    if (this->verificarExistenciaDeLaPagina(numPagina) == true) {
+        int j = 0;
+        for (int i = 0; i < this->sizeColumnaFrameId; i++) {
+            if (this->matrizPageTable[i][j] == numPagina) {
+                numFilaElegida = i;
+                break;
+            }
+        }
+
+        int columnDirty = 2;
+        if (this->matrizPageTable[numFilaElegida][columnDirty] == 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
+
 void PageTable::actualizarDetallesDePaginaEliminada(int numPaginaEliminar, int nuevaPaginaIngresar) {
     int numFilaElegida;
     int numFilaFrame = this->getNumFrameDeLaPagina(numPaginaEliminar);
