@@ -19,7 +19,7 @@ Estructuras de Datos: Estas estructuras deberán ser utilizadas en la implementa
 3. Analizar los 4 índices según los criterios de indexación (Tiempo de Acceso, Tiempo de Inserción, Tiempo de Borrado, Espacio Adicional requerido).
 4. ¿Como funcionan los índices durante el proceso de solicitud de un registro?. Explique el proceso, cual es el más costoso.
 
-Se espera aclarar dudas para la presentación del día viernes, anotar las partes importantes para que el laboratorio se realice correctamente.
+Reformular la pregunta 4.
 
 ## Presentación Laboratorio viernes 12 de Julio.
 
