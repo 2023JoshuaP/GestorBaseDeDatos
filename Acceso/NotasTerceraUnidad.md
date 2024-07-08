@@ -23,4 +23,13 @@ Se espera aclarar dudas para la presentación del día viernes, anotar las parte
 
 ## Presentación Laboratorio viernes 12 de Julio.
 
-Árbol B+ implementado correctamente sin unión al Buffer o Disco, hacer pruebas. Empezar desde el lunes o martes para evitar problemas un día antes de la presentación
+- Árbol B+ implementado correctamente sin unión al Buffer o Disco, hacer pruebas. Empezar desde el lunes o martes para evitar problemas un día antes de la presentación. Explicar el B+ Tree (Inserción y Eliminación.)
+
+- Criterios de minimizar: Memoria / Amacenamiento
+    - Indice
+    - Consulta -> Dinámicos / Estáticos
+    - Cantidad de Datos.
+    - Aplica -> Temporales / Espaciales
+        - Loteria -> app
+        - Redes Sociales -> post
+        - Sensores -> salud
