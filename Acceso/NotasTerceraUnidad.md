@@ -33,3 +33,7 @@ Reformular la pregunta 4.
         - Loteria -> app
         - Redes Sociales -> post
         - Sensores -> salud
+
+## Presentación Lunes 15 de Julio
+
+- Diagrama de Casos de B+ Tree con unión al Disco y usando de caso el 2 de post en el server 3. No hacer fallar el B+ Tree.
