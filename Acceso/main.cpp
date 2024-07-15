@@ -15,7 +15,6 @@ void insertion(BPlusTree** Btree) {
     string date;
     string directorio = "Registros.csv";
     ifstream fileDirectorio(directorio);
-
     string linea;
 
     while (getline(fileDirectorio, linea)) {
@@ -34,7 +33,9 @@ void insertion(BPlusTree** Btree) {
         getline(ss, valor, ',');
         date = valor;
 
-        
+        // Leer date (tercer valor de la línea)
+        getline(ss, valor, ',');
+        content = valor;
 
         string fileName = "../Archivos/" + to_string(rolNo) + ".txt";
         FILE* filePtr = fopen(fileName.c_str(), "w");
