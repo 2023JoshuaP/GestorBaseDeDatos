@@ -37,3 +37,30 @@ Reformular la pregunta 4.
 ## Presentación Lunes 15 de Julio
 
 - Diagrama de Casos de B+ Tree con unión al Disco y usando de caso el 2 de post en el server 3. No hacer fallar el B+ Tree.
+
+## Presentación Viernes 19 de Julio
+
+- Conexión del B+ Tree con el Disco, hacer intento de conectarlo con el Buffer Manager. Trabajarlo en un caso en documento (Ejemplo: Post en el server 3).
+
+## Presentacion Final Lunes 22 de Julio.
+
+Examen Final:
+
+- Definir como será el server 3 (FILE).
+    1. Ejemplo de Tabla (Ejemplo: 50 registros, definir la clave primaria).
+    2. Diagrama de Clases.
+    3. Titanic csv.
+- Índice
+    1. Definir clave de búsqueda.
+    2. Tipo de Índice.
+    3. Clustered o Unclestered.
+    4. Crear varios Índices.
+- Diagrama de Clases
+    1. Diagrama General.
+    2. Especifico.
+- Funcionalidad
+    1. Ingresar un nuevo registro (Registros Longitud Fija y Longitud Variable), mostrar el paso a paso.
+    2. Eliminar un registro, mostrar el paso a paso.
+    3. Ingresar el dataset (FILE completo).
+    4. Visualización de Graphviz.
+- Políticas de Generación SGBD
