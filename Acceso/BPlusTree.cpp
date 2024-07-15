@@ -635,3 +635,46 @@ void BPlusTree::removeInternal(int x, Node* cursor, Node* child) {
         cout << "Fusionado con el hermano derecho\n";
     }
 }
+
+void BPlusTree::generateDOT(Node* cursor, ofstream &file) {
+    if (cursor == NULL) {
+        return;
+    }
+
+    queue<Node*> q;
+    q.push(cursor);
+
+    while (!q.empty()) {
+        int size = q.size();
+        for (int i = 0; i < size; i++) {
+            Node* u = q.front();
+            q.pop();
+            file << "\"" << u << "\" [label=\"";
+            for (int val : u->keys) {
+                file << val << " ";
+            }
+            file << "\"];\n";
+
+            if (!u->isLeaf) {
+                for (Node* v : u->ptr2TreeOrData.ptr2Tree) {
+                    if (v != NULL) {
+                        file << "\"" << u << "\" -> \"" << v << "\";\n";
+                        q.push(v);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void BPlusTree::generateDOTFile(string filename) {
+    ofstream file;
+    file.open(filename);
+
+    file << "digraph BPlusTree {\n";
+    file << "node [shape=record];\n";
+    generateDOT(root, file);
+    file << "}\n";
+
+    file.close();
+}
