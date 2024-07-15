@@ -3,30 +3,49 @@
 #include <algorithm>
 #include <fstream>
 #include <string>
+#include <sstream>
 #include "./BPlusTree.cpp"
-#define _CRT_SECURE_NO_DEPRECATE
 using namespace std;
 
 void insertion(BPlusTree** Btree) {
+    //int cont = 1;
     int rolNo;
-    int age, marks;
-    string name;
+    string ID;
+    string content;
+    string date;
+    string directorio = "Registros.csv";
+    ifstream fileDirectorio(directorio);
 
-    cout << "Numero de Registro." << endl;
-    cin >> rolNo;
+    string linea;
 
-    cout << "Ingresar datos (nombre, edad y marca): ";
-    cin >> name >> age >> marks;
+    while (getline(fileDirectorio, linea)) {
+        stringstream ss(linea);
+        string valor;
 
-    string fileName = "../Archivos/";
-    fileName += to_string(rolNo) + ".txt";
-    FILE* filePtr = fopen(fileName.c_str(), "w");
-    string userTuple = name + " " + to_string(age) + " " + to_string(marks) + "\n";
-    fprintf(filePtr, userTuple.c_str());
+        // Leer rolNo (primer valor de la línea)
+        getline(ss, valor, ',');
+        rolNo = stoi(valor);
 
-    (*Btree)->insert(rolNo, filePtr);
-    fclose(filePtr);
-    cout << "Insercion del rol: " << rolNo << " existoso." << endl;
+        // Leer ID (segundo valor de la línea)
+        getline(ss, valor, ',');
+        ID = valor;
+
+        // Leer date (tercer valor de la línea)
+        getline(ss, valor, ',');
+        date = valor;
+
+        
+
+        string fileName = "../Archivos/" + to_string(rolNo) + ".txt";
+        FILE* filePtr = fopen(fileName.c_str(), "w");
+        string userTuple = to_string(rolNo) + " " + ID + " " + date + " " + content + "\n";
+        fprintf(filePtr, "%s", userTuple.c_str());
+        fclose(filePtr);
+
+        (*Btree)->insert(rolNo, filePtr);
+        //cont ++;
+        cout << "Inserción del rol: " << rolNo << " exitosa." << endl;
+    }
 }
 
 void searching(BPlusTree* Btree) {
