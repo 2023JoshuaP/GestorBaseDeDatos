@@ -104,7 +104,8 @@ int main() {
         cout << "2. Busqueda." << endl;
         cout << "3. Imprimir." << endl;
         cout << "4. Eliminar." << endl;
-        cout << "5. Salir." << endl;
+        cout << "5. Generar .dot." << endl;
+        cout << "6. Salir." << endl;
         cout << "Opcion? ";
         cin >> option;
 
@@ -122,11 +123,14 @@ int main() {
                 deletion(BTree);
                 break;
             case 5:
+                BTree->generateDOTFile("BPlusTree.dot");
+                break;
+            case 6:
                 cout << "Saliendo..." << endl;
                 break;
             default:
                 flag = false;
                 break;
         }
-    } while (option != 5);
+    } while (option != 6);
 }
