@@ -46,6 +46,8 @@ class BPlusTree {
         void insert(int key, FILE* filePtr);
         void removeKey(int key);
         void removeInternal(int x, Node* cursor, Node* child);
+        void generateDOT(Node* cursor, ofstream &file);
+        void generateDOTFile(string filename);
 };
 
 #endif
