@@ -7,13 +7,13 @@
 #include "./BPlusTree.cpp"
 using namespace std;
 
-void insertion(BPlusTree** Btree) {
+void insertion(BPlusTree** Btree, string directorio) {
     //int cont = 1;
     int rolNo;
     string ID;
     string content;
     string date;
-    string directorio = "Registros.csv";
+    string directorio;
     ifstream fileDirectorio(directorio);
     string linea;
 
@@ -33,7 +33,7 @@ void insertion(BPlusTree** Btree) {
         getline(ss, valor, ',');
         date = valor;
 
-        // Leer date (tercer valor de la línea)
+        // Leer content (tercer valor de la línea)
         getline(ss, valor, ',');
         content = valor;
 
@@ -96,7 +96,7 @@ int main() {
     cin >> maxChildInt;
     cout << "Limite maximo de claves que pueden haber en un Nodo Hoja: ";
     cin >> maxNodeLeaf;
-
+    string directorio;
     BPlusTree* BTree = new BPlusTree(maxChildInt, maxNodeLeaf);
 
     do {
@@ -111,7 +111,7 @@ int main() {
 
         switch (option) {
             case 1:
-                insertion(&BTree);
+                insertion(&BTree, directorio);
                 break;
             case 2:
                 searching(BTree);
