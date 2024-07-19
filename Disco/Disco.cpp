@@ -2,6 +2,142 @@
 #include <filesystem>
 namespace fs = std::filesystem;
 
+/* Funciones para la conexion con el Arbol */
+
+int Disco::stringToAscii(const string& input) {
+    int sum = 0;
+    for (char c : input) {
+        sum += static_cast<int>(c);
+    }
+    return sum;
+}
+
+void Disco::insertion(BPlusTree** BTree, string archivo) {
+    bool firstLine = true;
+    string primaryKey;
+    string option;
+
+    string directory = "../Acceso/" + archivo;
+    ifstream fileDirectory(directory);
+    string line;
+    int locatePrimaryKey = 1;
+
+    if (!fileDirectory.is_open()) {
+        cout << "No se pudo encontrar el archivo." << endl;
+        return;
+    }
+
+    cout << "Primary Key que se va a usar en el arbol (cadena/str o entero/int)?" << endl;
+    cin >> option;
+    cout << "Ingresar la Primary Key que se va a usar: " << endl;
+    cin >> primaryKey;
+
+    if (option == "int") {
+        int rollNo;
+        while (getline(fileDirectory, line)) {
+            stringstream ss(line);
+            string value;
+            int cont = 1;
+
+            while (getline(ss, value, ',')) {
+                if (firstLine) {
+                    if (value == primaryKey) {
+                        cout << "Valor que sera la Primary Key es: " << primaryKey << endl;
+                        cout << "Posicion a considerar = " << locatePrimaryKey << endl;
+                        firstLine = false;
+                        break;
+                    }
+                    else {
+                        locatePrimaryKey++;
+                    }
+                }
+                else {
+                    if (cont == locatePrimaryKey) {
+                        try {
+                            rollNo = stoi(value);
+                        } catch (invalid_argument& e) {
+                            cout << "Error al convertir el valor: " << value << " a un entero." << endl;
+                            return;
+                        } catch (out_of_range& e) {
+                            cout << "Error en el valor: " << value << ", esta fuera de rango." << endl;
+                            return;
+                        }
+                        break;
+                    }
+                    else {
+                        cont++;
+                    }
+                }
+            }
+
+            if (!firstLine) {
+                string fileName = "../Archivos/" + to_string(rollNo) + ".txt";
+                FILE* filePtr = fopen(fileName.c_str(), "w");
+                if (filePtr == nullptr) {
+                    cout << "Error al abrir el archivo para escribir." << endl;
+                    return;
+                }
+                string userTuple = to_string(rollNo) + " " + line + "\n";
+                fprintf(filePtr, "%s", userTuple.c_str());
+                fclose(filePtr);
+
+                (*BTree)->insert(rollNo, filePtr);
+                cout << "Insertando del rol: " << rollNo << " exitosa." << endl;
+            }
+        }
+    }
+    else if (option == "str") {
+        string rollNo;
+        while (getline(fileDirectory, line)) {
+            stringstream ss(line);
+            string value;
+            int cont = 1;
+
+            while (getline(ss, value, 's')) {
+                if (firstLine) {
+                    if (value == primaryKey) {
+                        cout << "Valor a usar como Primary Key sera: " << primaryKey << endl;
+                        cout << "Posicion a considerar = " << locatePrimaryKey << endl;
+                        firstLine = false;
+                        break;
+                    }
+                    else {
+                        locatePrimaryKey++;
+                    }
+                }
+                else {
+                    if (cont == locatePrimaryKey) {
+                        rollNo = value;
+                        break;
+                    }
+                    else {
+                        cont++;
+                    }
+                }
+            }
+
+            if (firstLine == false) {
+                int asciiRollNo = stringToAscii(rollNo);
+                cout << asciiRollNo << endl;
+                string fileName = "../Archivos/" + to_string(asciiRollNo) + ".txt";
+                FILE* filePtr = fopen(fileName.c_str(), "w");
+                
+                if (filePtr == nullptr) {
+                    cout << "Error al abrir el archivo para escribir." << endl;
+                    return;
+                }
+
+                string userTuple = to_string(asciiRollNo) + " " + line + "\n";
+                fprintf(filePtr, "%s", userTuple.c_str());
+                fclose(filePtr);
+
+                (*BTree)->insert(asciiRollNo, filePtr);
+                cout << "Insercion del rol: " << rollNo << " exitosa." << endl;
+            }
+        }
+    }
+}
+
 /* Calcular el tamaño de los registros de Longitud Fija */
 
 vector<FieldInfo> loadSchema(const string& schemaFile) {
@@ -131,7 +267,7 @@ void Disco::insertarRegistrosSector(ofstream& archivoSector, ifstream& archivoTX
     cout << endl;
 }
 
-void Disco::llenarRegistrosSector(const string& archivo, const string& schemaFile) {
+void Disco::llenarRegistrosSector(const string& archivo, const string& schemaFile, BPlusTree* BTree) {
     schema = loadSchema(schemaFile);
 
     if (schema.empty()) {
@@ -165,6 +301,7 @@ void Disco::llenarRegistrosSector(const string& archivo, const string& schemaFil
             }
         }
     }
+    insertion(&BTree, archivo);
     file.close();
 }
 
