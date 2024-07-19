@@ -6,6 +6,9 @@
 #include <sstream>
 #include <string>
 #include <fstream>
+
+/* Inlclusión de la clase B+ Tree*/
+#include "../Acceso/BPlusTree.h"
 using namespace std;
 
 struct Bloque {
@@ -53,11 +56,16 @@ class Disco{
         /* Funciones para la creacion de Bloques para el Buffer Manager */
 
         void insertarRegistrosSector(ofstream& archivoSector, ifstream& archivoTexto, int registrosPorSector);
-        void llenarRegistrosSector(const string& archivo, const string& schemaFile);
+        void llenarRegistrosSector(const string& archivo, const string& schemaFile, BPlusTree* btree);
         bool leerSector(const string& sector, string& contenido);
         void crearBloques(int capacidadBloque, int capacidadSector, int cantidadSectores);
         int calcularEspacioLibreEnBloque(const string& archivoBloque, int capacidadBloque);
         void calcularEspacioLibreEnTodosLosBloques(int capacidadBloque);
+        
+        /* Funciones para la union con el Arbol B+ */
+        
+        void insertion(BPlusTree** Btree, string directorio);
+        int stringToAscii(const string& input);
 };
 
 #endif
