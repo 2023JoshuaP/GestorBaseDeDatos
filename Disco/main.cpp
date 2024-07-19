@@ -5,7 +5,85 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include "../Acceso/BPlusTree.cpp"
 using namespace std;
+
+void insertion(BPlusTree** Btree) {
+    //int cont = 1;
+    int rolNo;
+    string ID;
+    string content;
+    string date;
+    string directorio = "../Acceso/Registros.csv";
+    ifstream fileDirectorio(directorio);
+    string linea;
+
+    while (getline(fileDirectorio, linea)) {
+        stringstream ss(linea);
+        string valor;
+
+        // Leer rolNo (primer valor de la línea)
+        getline(ss, valor, ',');
+        rolNo = stoi(valor);
+
+        // Leer ID (segundo valor de la línea)
+        getline(ss, valor, ',');
+        ID = valor;
+
+        // Leer date (tercer valor de la línea)
+        getline(ss, valor, ',');
+        date = valor;
+
+        // Leer date (tercer valor de la línea)
+        getline(ss, valor, ',');
+        content = valor;
+
+        string fileName = "../Archivos/" + to_string(rolNo) + ".txt";
+        FILE* filePtr = fopen(fileName.c_str(), "w");
+        string userTuple = to_string(rolNo) + " " + ID + " " + date + " " + content + "\n";
+        fprintf(filePtr, "%s", userTuple.c_str());
+        fclose(filePtr);
+
+        (*Btree)->insert(rolNo, filePtr);
+        //cont ++;
+        cout << "Inserción del rol: " << rolNo << " exitosa." << endl;
+    }
+}
+
+void printing(BPlusTree* BTree) {
+    int option;
+    cout << "1. Display Secuencial." << endl;
+    cout << "2. Display Iterativo." << endl;
+    cin >> option;
+
+    if (option == 1) {
+        BTree->seqDisplay(BTree->getRoot());
+    }
+    else if (option == 2) {
+        BTree->display(BTree->getRoot());
+    }
+}
+
+void deletion(BPlusTree* BTree) {
+    cout << "Showing you the Tree, Choose a key from here: " << endl;
+    BTree->display(BTree->getRoot());
+ 
+    int tmp;
+    cout << "Enter a key to delete: " << endl;
+    cin >> tmp;
+    BTree->removeKey(tmp);
+
+    //Displaying
+    BTree->display(BTree->getRoot());
+}
+
+void searching(BPlusTree* Btree) {
+    int rolNo;
+    cout << "Rol a buscar? ";
+    cin >> rolNo;
+
+    Btree->search(rolNo);
+}
 
 string ajustarCampo(const string& campo, int longitud) {
     if (campo.length() < longitud) {
@@ -171,6 +249,49 @@ void esquema() {
     }
 }
 
+void menuArbol(BPlusTree* BTree) {
+    bool flag = true;
+    int option;
+
+    do {
+        cout << "------------------MENU DEL ARBOL---------------------" << endl;
+        cout << "Arbol B+ como SGBD basico." << endl;
+        cout << "1. Insercion." << endl;
+        cout << "2. Busqueda." << endl;
+        cout << "3. Imprimir." << endl;
+        cout << "4. Eliminar." << endl;
+        cout << "5. Generar .dot." << endl;
+        cout << "6. Salir." << endl;
+        cout << "Opcion? ";
+        cin >> option;
+
+        switch (option) {
+            case 1:
+                insertion(&BTree);
+                break;
+            case 2:
+                searching(BTree);
+                break;
+            case 3:
+                printing(BTree);
+                break;
+            case 4:
+                deletion(BTree);
+                break;
+            case 5:
+                BTree->generateDOTFile("BPlusTree.dot");
+                break;
+            case 6:
+                cout << "Saliendo del menú del árbol..." << endl;
+                flag = false;
+                break;
+            default:
+                cout << "Opcion incorrecta, elija de nuevo." << endl;
+                break;
+        }
+    } while (flag);
+}
+
 int main() {
     Disco disco;
     bool creacionDisco = false;
@@ -179,6 +300,16 @@ int main() {
     string schema;
     int capacidadBloques;
     int opcion;
+
+    int maxChildInt;
+    int maxNodeLeaf;
+    cout << "Limite maximo de Nodos Internos Hijos que pueden haber: ";
+    cin >> maxChildInt;
+    cout << "Limite maximo de claves que pueden haber en un Nodo Hijo: ";
+    cin >> maxNodeLeaf;
+
+    BPlusTree* Btree = new BPlusTree(maxChildInt, maxNodeLeaf);
+    
     do {
         cout << "-----------------------------------------------------" << endl;
         cout << "\t\t   Menu del Disco\t\t" << endl;
@@ -188,7 +319,8 @@ int main() {
         cout << "3. Creacion del disco con los bloques y llenado de Sectores." << endl;
         cout << "4. Mostrar capacidad del disco." << endl;
         cout << "5. Eliminacion del disco." << endl;
-        cout << "6. Salir del programa del disco." << endl;
+        cout << "6. Ejecutar programa del Arbol." << endl;
+        cout << "7. Salir del programa del disco." << endl;
         cout << "Ingrese su opcion a ejecutar: " << endl;
         cin >> opcion;
         cout << "-----------------------------------------------------" << endl;
@@ -238,7 +370,7 @@ int main() {
                     cout << "Archivo con el Esquema en TXT: ";
                     cin >> schema;
 
-                    disco.llenarRegistrosSector("../Archivos/" + recordsFixed, "../Archivos/" + schema);
+                    disco.llenarRegistrosSector("../Archivos/" + recordsFixed, "../Archivos/" + schema, Btree);
                     disco.crearBloques(capacidadBloques, capacidadSectores, sectores);
                     disco.calcularEspacioLibreEnTodosLosBloques(capacidadBloques);
                 }
@@ -260,13 +392,18 @@ int main() {
                 break;
             }
             case 6: {
-                cout << "Terminando el programa del Disco. " << endl;
+                menuArbol(Btree);
+                break;
+            }
+            case 7: {
+                cout << "Saliendo del programa del Disco." << endl;
                 break;
             }
             default: {
                 cout << "Opcion incorrecta, elija de nuevo." << endl;
             }
         }
-    } while (opcion != 6);
+    } while (opcion != 7);
+    
     return 0;
 }
