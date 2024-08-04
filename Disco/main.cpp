@@ -388,7 +388,6 @@ int main() {
             }
             case 5: {
                 disco.eliminarDisco();
-                cout << "Disco eliminado correctamente." << endl;
                 break;
             }
             case 6: {
