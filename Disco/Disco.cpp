@@ -252,7 +252,9 @@ void Disco::eliminarDisco() {
         fs::remove_all(carpeta);
         cout << "Disco eliminado correctamente." << endl;
     }
-    cout << "No existe un Disco creado con anticipación." << endl;
+    else {
+        cout << "No existe un Disco creado con anticipación." << endl;
+    }
 }
 
 /* Implementación de la creación de Bloques con operaciones necesarias */
