@@ -1,5 +1,5 @@
-#ifndef _DATAMANAGER_
-#define _DATAMANAGER_
+#ifndef DATAMANAGER_H
+#define DATAMANAGER_H
 
 #include <iostream>
 #include <string>
