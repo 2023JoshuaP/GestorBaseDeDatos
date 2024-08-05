@@ -10,9 +10,9 @@
 #include <limits>
 #include <cmath>
 #include <vector>
-#include "./GlobalVariable.cpp"
-#include "./Pesos.cpp"
-#include "./DataManager.cpp"
+#include "GlobalVariable.h"
+#include "Pesos.h"
+#include "DataManager.h"
 using namespace std;
 
 #define esquemas "Esquemas"
