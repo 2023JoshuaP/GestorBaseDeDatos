@@ -1,8 +1,17 @@
-# Implementación de un Gestor de Base de Datos para el curso de Base de Datos 2 (Universidad Nacional de San Agustín de Arequiá - UNSA)
+# Implementación de un Gestor de Base de Datos para el curso de Base de Datos 2 (Universidad Nacional de San Agustín de Arequipa - UNSA)
 
 ## Descripción del Proyecto
 
-Este repositorio contiene la implementación de un Sistema de Gestión de Bases de Datos (SGBD) escrito en C++. El proyecto permite la creación y manipulación de un disco virtual simulado, incluyendo la gestión de archivos y la conversión de datos CSV en registros de longitud fija. Es ideal para aquellos interesados en comprender los fundamentos de cómo funcionan los sistemas de gestión de bases de datos a nivel interno.
+Este repositorio contiene la implementación de un Gestor de Base de Datos desarrollado en **C++** para la manipulación de datos y realizar consultas. Este Gestor de Base de Datos fue para el curso de **Base de Datos II** en la **Escuela Profesional de Ciencia de la Computación** de la **Universidad Nacional de San Agustín de Arequipa**. Aclarar que la implementación fue hecho en equipos, por lo cual esta implementación fue desarrollado por los estudiantes:
+
+- ***Piero Adriano Cárdenas Villagómez*:** (https://github.com/pieroadrianoCV)
+- ***Josue Samuel Philco Puma*:** (https://github.com/2023JoshuaP)
+
+### Propósito del Repositorio
+
+Este repositorio se proporciona como una **guía educativa** para futuros estudiantes del curso **Base de Datos II**. Está diseñado para ayudar a comprender las ideas y enfoques posibles en el desarrollo de un Gestor de Bases de Datos, no para ser copiado o presentado como propio.
+
+**Nota Importante:** Se alienta a los usuarios a usar este repositorio como referencia para inspirarse y aprender, pero se desaconseja su uso para copiar y presentar el trabajo como propio. El propósito principal es servir de ayuda y guía en el proceso de aprendizaje.
 
 ## Características Principales
 
