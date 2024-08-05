@@ -16,10 +16,10 @@ Este repositorio se proporciona como una **guía educativa** para futuros estudi
 ## Características Principales
 
 1. **Generación de Esquemas**:
-   - Transforma archivos CSV en un formato de texto estructurado basado en esquemas definidos. Esto es crucial para manejar y organizar datos de manera eficiente.
+   - Transforma archivos CSV en un formato de texto estructurado basado en esquemas definidos. Esto es crucial para manejar y organizar datos de manera eficiente. Estos esquemas serán útiles para las consultas y verificación de la existencia de una tabla.
 
-2. **Conversión de Registros**:
-   - Convierte registros de datos en una longitud fija, facilitando el manejo y almacenamiento uniforme de la información en el disco virtual.
+2. **Conversión de CSV a los datos/registros**:
+   - Se maneja la conversión de registros desde un archivo CSV a una relación en un archivo de texto, lo cual nos servirá en consultas de Gestores conocidos como MySql, además que más adelante se verán conversiones de Registros a Longitud Fija para los demás módulos del curso.
 
 3. **Creación de un Disco Virtual**:
    - Simula un disco con una estructura detallada que incluye platos, pistas, sectores y bloques. Este modelo de disco permite experimentar con conceptos de almacenamiento físico en sistemas de bases de datos.
@@ -30,6 +30,9 @@ Este repositorio se proporciona como una **guía educativa** para futuros estudi
 5. **Gestión de la Memoria en el Buffer Manager**:
    - Permite una mejor gestión para los bloques/páginas del disco, manejo de registros en la inserción, modificación y eliminación de dichos registros y guardarlos en memoria y también en el disco.
 
+6. **Gestión en los métodos de Acceso**:
+   - Se maneja las estructuras de Datos como el **B+ Tree** para la recuperación de un cierto registro mediante la indexación. Este contiene donde se encuentra almacenado un registro en el disco, también manejando inserción y eliminación en la memoria Buffer y de ahi mandándolo al disco.
+
 ## Estructura del Proyecto
 
 El proyecto está organizado en varias carpetas y archivos, cada uno con su propósito específico:
@@ -37,6 +40,10 @@ El proyecto está organizado en varias carpetas y archivos, cada uno con su prop
 ```plaintext
 .
 ├── Acceso
+│   ├── BPlusTree.cpp
+│   ├── BPlusTree.h
+│   ├── BPlusVisual.cpp
+│   ├── main.cpp
 │   └── NotasTerceraUnidad.md
 ├── Archivos
 │   ├── directorio.txt
@@ -52,7 +59,6 @@ El proyecto está organizado en varias carpetas y archivos, cada uno con su prop
 |   ├── Frame.cpp
 |   ├── Frame.h
 │   ├── main.cpp
-│   ├── main.exe
 │   ├── PageTable.cpp
 │   ├── PageTable.h
 │   ├── Pagina.cpp
@@ -60,6 +66,21 @@ El proyecto está organizado en varias carpetas y archivos, cada uno con su prop
 ├── Disco
 │   ├── Disco.cpp
 │   └── Disco.h
+│   └── main.cpp
+├── Megatron
+|   ├── DataBase.cpp
+|   ├── DataBase.h
+|   ├── DataManager.cpp
+|   ├── DataManager.h
+|   ├── GlobalVariable.cpp
+|   ├── GlobalVariable.h
+|   ├── Makefile
+|   ├── Pesos.cpp
+|   ├── Pesos.h
+|   ├── SchemaManager.cpp
+│   └── SchemaManager.h
+├── .gitignore
+├── mainGeneral.cpp
 ├── README.md
 └── .vscode
     └── settings.json
