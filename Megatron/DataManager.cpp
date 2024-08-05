@@ -331,3 +331,151 @@ void DataManager::where (string relation, string dataString, string symbol, int 
         cout << "No se encontraron coincidencias para la consulta." << endl;
     }
 }
+
+void DataManager::whereCondition(string relation, string dataString, string symbol, int compare, string sign, string nameNewRelation) {
+    string lineSquema;
+    ifstream nameRelation(esquemas);
+    int pos;
+    int posString;
+    int posColumnData = -1;
+    vector<string> elements;
+
+    cout << "Buscando el Esquema para la Relacion: " << relation << endl;
+
+    while (getline(nameRelation, lineSquema)) {
+        string wordLineSquema;
+        istringstream lineSquemaStream(lineSquema);
+        pos = lineSquema.find(relation);
+        int posColumn = -1;
+
+        if (pos == 0) {
+            cout << "Esquema encontrado: " << lineSquema << endl;
+            while (getline(lineSquemaStream, wordLineSquema, '#')) {
+                posColumn++;
+                if (wordLineSquema == dataString) {
+                    posColumnData = posColumn;
+                    cout << "Columna encontrada para " << dataString << ": " << posColumnData << endl;
+                }
+            }
+            break;
+        }
+    }
+
+    if (posColumnData == -1) {
+        cout << "Error, no se encontro la columna " << dataString << " en la relacion " << relation << endl;
+        return;
+    }
+
+    nameRelation.close();
+    cout << "Buscando datos en la relacion: " << relation << endl;
+
+    string lineRelation;
+    ifstream data(relation);
+
+    while (getline(data, lineRelation)) {
+        string wordLineRelation;
+        istringstream lineRelationStream(lineRelation);
+        int posRelation = 0;
+        while (getline(lineRelationStream, wordLineRelation, '#')) {
+            if (posRelation == posColumnData) {
+                bool match = false;
+
+                try {
+                    int value = stoi(wordLineRelation);
+                    if (symbol == ">" && value > compare) {
+                        match = true;
+                    }
+                    else if (symbol == ">=" && value >= compare) {
+                        match = true;
+                    }
+                    else if (symbol == "<" && value < compare) {
+                        match = true;
+                    }
+                    else if (symbol == "<=" && value <= compare) {
+                        match = true;
+                    }
+                    else if (symbol == "==" && value == compare) {
+                        match = true;
+                    }
+                    else if (symbol == "!=" && value != compare) {
+                        match = true;
+                    }
+                    else {
+                        cout << "Error, el operador no es soportado: " << symbol << endl;
+                        return;
+                    }
+                }
+                catch (const std::invalid_argument&) {
+                    cout << "Error, valor no numerico encontrado en la columna: " << wordLineRelation << endl;
+                    return;
+                }
+
+                if (match) {
+                    elements.push_back(lineRelation);
+                    cout << "Coincidencia encontrada: " << lineRelation << endl;
+                }
+            }
+            posRelation++;
+        }
+    }
+
+    data.close();
+
+    if (sign == "|") {
+        string lineSquema2;
+        nameNewRelation = capitalize(nameNewRelation);
+        fstream fileSquemas(esquemas, std::ios::in | std::ios::out | std::ios::app);
+        fileSquemas.seekp(0, std::ios::end);
+        fileSquemas << nameNewRelation << "#";
+        int idx = 0;
+        vector<string> elements2;
+        fileSquemas.seekg(0, std::ios::beg);
+
+        cout << "Agregando el Esquema a la nueva relacion: " << nameNewRelation << endl;
+
+        while (getline(fileSquemas, lineSquema2)) {
+            string wordLineSquema;
+            istringstream lineSquemaStream2(lineSquema2);
+            pos = lineSquema2.find(relation);
+            if (pos == 0) {
+                while (getline(lineSquemaStream2, wordLineSquema, '#')) {
+                    if (pos > 0) {
+                        elements2.push_back(wordLineSquema);
+                    }
+                    pos++;
+                }
+                break;
+            }
+        }
+
+        for (int i = 0; i < elements2.size(); i++) {
+            fileSquemas << elements2[i];
+            if (i < elements2.size() - 1) {
+                fileSquemas << "#";
+            }
+        }
+
+        fileSquemas << endl;
+        fileSquemas.close();
+
+        cout << "Esquema agregado a la nueva relacion." << endl;
+    }
+
+    cout << "Resultados encontrados: " << endl;
+
+    for (const auto& elem : elements) {
+        cout << elem << endl;
+    }
+
+    if (elements.empty()) {
+        cout << "Error, no se encontraron coincidencias para la consulta." << endl;
+    }
+    else {
+        ofstream newFile(nameNewRelation);
+        for (const auto& i : elements) {
+            newFile << i << endl;
+        }
+        newFile.close();
+        cout << "Nueva relacion creada: " << nameNewRelation << endl;
+    }
+}
