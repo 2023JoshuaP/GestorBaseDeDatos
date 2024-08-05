@@ -7,7 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "./DataManager.cpp"
+#include "DataManager.h"
 using namespace std;
 
 #define sectorSize 1000
