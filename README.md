@@ -102,9 +102,14 @@ El proyecto está organizado en varias carpetas y archivos, cada uno con su prop
 - **Disco**: Contiene la implementación del disco virtual:
   - `Disco.cpp` y `Disco.h`: Estos archivos definen cómo se crea y manipula el disco virtual, incluyendo la configuración de su estructura (platos, pistas, sectores y bloques).
 
+- **Megatron**: Incluye los archivos encargados de la simulación de consultas de datos como MySql.
+  - `SchemaManager.cpp` y `SchemaManager.h`: Estos archivos definen la creación de un esquema con su relación correcpondiente.
+  - `DataManager.cpp` y `DataManager.h`: Estos archivos son los encargados de las consultas de los datos.
+  - `DataBase.cpp` y `DataBase.h`: Estos archivos contienen el menú encargado para iniciar el Megatron.
+
 - **.vscode**: Contiene configuraciones específicas para el entorno de desarrollo Visual Studio Code, facilitando la configuración y depuración del proyecto.
 
-- **megatron2**: Contiene la informacion de los archivos que servirán para una mejor gestión de las rutas: información de la estructura del Disco y rutas del Disco.
+***NOTA IMPORTANTE:*** Para la primera parte esta compilando con un Makefile, este puede funcionar en Linux (mejor uso de Makefile) y en Windows (no se recomienda usar el Makefile pero se puede usar de manera normal, si desea usar lo mismo se recomienda usar **Cmake**).
 
 ## Contribuciones
 
