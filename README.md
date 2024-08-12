@@ -33,83 +33,11 @@ Este repositorio se proporciona como una **guía educativa** para futuros estudi
 6. **Gestión en los métodos de Acceso**:
    - Se maneja las estructuras de Datos como el **B+ Tree** para la recuperación de un cierto registro mediante la indexación. Este contiene donde se encuentra almacenado un registro en el disco, también manejando inserción y eliminación en la memoria Buffer y de ahi mandándolo al disco.
 
-## Estructura del Proyecto
+## Estructura del Sistema Gestor de Base de Datos
 
-El proyecto está organizado en varias carpetas y archivos, cada uno con su propósito específico:
+El proyecto está organizado en varias carpetas y archivos, cada uno con su propósito específico. En las diferentes carpetas se encuentra las notas de clase de cada avance que se ha presentado durante el curso.
 
-```plaintext
-.
-├── Acceso
-│   ├── BPlusTree.cpp
-│   ├── BPlusTree.h
-│   ├── BPlusVisual.cpp
-│   ├── main.cpp
-│   └── NotasTerceraUnidad.md
-├── Archivos
-│   ├── directorio.txt
-│   ├── esquemaTitanic.txt
-│   ├── registros.txt
-│   ├── registrosTitanic.txt
-│   └── Titanic.csv
-├── Buffer
-|   ├── BufferManager.cpp
-|   ├── BufferManager.h
-|   ├── BufferPool.cpp
-|   ├── BufferPool.h
-|   ├── Frame.cpp
-|   ├── Frame.h
-│   ├── main.cpp
-│   ├── PageTable.cpp
-│   ├── PageTable.h
-│   ├── Pagina.cpp
-│   └── Pagina.h
-├── Disco
-│   ├── Disco.cpp
-│   └── Disco.h
-│   └── main.cpp
-├── Megatron
-|   ├── DataBase.cpp
-|   ├── DataBase.h
-|   ├── DataManager.cpp
-|   ├── DataManager.h
-|   ├── GlobalVariable.cpp
-|   ├── GlobalVariable.h
-|   ├── Makefile
-|   ├── Pesos.cpp
-|   ├── Pesos.h
-|   ├── SchemaManager.cpp
-│   └── SchemaManager.h
-├── .gitignore
-├── mainGeneral.cpp
-├── README.md
-└── .vscode
-    └── settings.json
-```
-
-- **Archivos**: Contiene los archivos de datos y los esquemas utilizados en el proyecto. Estos archivos son fundamentales para los procesos de conversión y almacenamiento. Algunos ejemplos incluyen:
-  - `Titanic.csv`: Un archivo CSV de ejemplo utilizado para demostrar la conversión de datos.
-  - `esquemaTitanic.txt`: El esquema generado a partir del archivo CSV, que define la estructura de los datos.
-  - `registrosTitanic.txt`: Los registros convertidos a partir del CSV, ahora en formato de longitud fija.
-
-- **Buffer**: Incluye los archivos fuente en C++ que manejan las operaciones de buffer y gestión de páginas dentro del disco virtual:
-  - `main.cpp`: El archivo principal del proyecto que coordina la ejecución de diferentes operaciones.
-  - `Pagina.cpp` y `Pagina.h`: Implementan la lógica para manejar las páginas de datos dentro del disco virtual.
-  - `Frame.cpp` y `Frame.h`: Implementan los Frames que almacenan las páginas del disco.
-  - `PageTable.cpp` y `PageTable.h`: Implementan una Tabla para los procesos que se realiza en la gestión.
-  - `BufferPool.cpp` y `BufferPool.h`: Implementan la creación del Buffer Pool con los datos necesarios, mediador entre el Disco y Buffer Manager.
-  - `BufferManager.cpp` y `BufferManager.h`: Implementan la parte mas importante de la gestión de memoria creando el Buffer Pool y la Page Table.
-
-- **Disco**: Contiene la implementación del disco virtual:
-  - `Disco.cpp` y `Disco.h`: Estos archivos definen cómo se crea y manipula el disco virtual, incluyendo la configuración de su estructura (platos, pistas, sectores y bloques).
-
-- **Megatron**: Incluye los archivos encargados de la simulación de consultas de datos como MySql.
-  - `SchemaManager.cpp` y `SchemaManager.h`: Estos archivos definen la creación de un esquema con su relación correcpondiente.
-  - `DataManager.cpp` y `DataManager.h`: Estos archivos son los encargados de las consultas de los datos.
-  - `DataBase.cpp` y `DataBase.h`: Estos archivos contienen el menú encargado para iniciar el Megatron.
-
-- **.vscode**: Contiene configuraciones específicas para el entorno de desarrollo Visual Studio Code, facilitando la configuración y depuración del proyecto.
-
-***NOTA IMPORTANTE:*** Para la primera parte esta compilando con un Makefile, este puede funcionar en Linux (mejor uso de Makefile) y en Windows (no se recomienda usar el Makefile pero se puede usar de manera normal, si desea usar lo mismo se recomienda usar **Cmake**).
+***NOTA IMPORTANTE:*** Los avances son acumulativos y va escalando en cada unidad hasta llegar al final, si no tienes avances o tienes faltas en la implementación no podrás realizar los siguientes módulos.
 
 ## Contribuciones
 
